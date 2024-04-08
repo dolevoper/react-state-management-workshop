@@ -3,6 +3,7 @@ import Dropdown, { Option } from "./components/Dropdown";
 import Input from "./components/Input";
 import TextArea from "./components/TextArea";
 import Button from "./components/Button";
+import ErrorMessage from "./components/ErrorMessage";
 
 function App() {
   const [currentStats, updateStat] = useStats();
@@ -16,8 +17,10 @@ function App() {
         className="stack"
         onSubmit={(e) => {
           e.preventDefault();
+          setFormError("");
 
           if (remainingPoints > 0) {
+            setFormError("All stat points must be allocated.");
             return;
           }
 
@@ -70,6 +73,7 @@ function App() {
           <p>Remaining points: {remainingPoints}</p>
         </article>
         <Button primary>Create</Button>
+        <ErrorMessage>{formError}</ErrorMessage>
       </form>
     </main>
   );
