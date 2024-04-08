@@ -1,0 +1,80 @@
+.wrapper {
+  position: relative;
+}
+
+.label {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-semibold);
+}
+
+.selection {
+  color: var(--neutral-secondary);
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: var(--font-size-14);
+  line-height: 2;
+  padding: 0 28px 0 8px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.selection:focus-visible {
+  outline-color: var(--theme-primary);
+}
+
+.selection::after {
+  content: "\E70D";
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-family: "FabricMDL2Icons";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  position: absolute;
+  right: 8px;
+}
+
+.listbox {
+  display: none;
+  position: absolute;
+  top: 100%;
+  background: white;
+  width: 100%;
+  box-shadow: var(--depth-8);
+  border-radius: 2px;
+  animation: open 0.1s linear;
+}
+
+[aria-expanded="true"] + .listbox {
+  display: block;
+}
+
+.option {
+  padding: 0 8px;
+  line-height: 2;
+  font-size: var(--font-size-14);
+  cursor: pointer;
+  user-select: none;
+}
+
+.option:hover {
+  background: var(--neutral-lighter);
+}
+
+.option[data-current="true"] {
+  background: var(--neutral-light);
+}
+
+@keyframes open {
+  from {
+    opacity: 0;
+    scale: 1 0;
+    transform-origin: top;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}

@@ -1,0 +1,22 @@
+.label {
+  font-size: var(--font-size-14);
+  font-weight: var(--font-weight-semibold);
+}
+
+.label:has(+ [required])::after {
+  content: " *";
+  color: var(--red-dark);
+}
+
+.input {
+  border: 1px solid var(--neutral-secondary);
+  border-radius: 2px;
+  padding: 0 8px;
+  line-height: 2;
+  font-size: var(--font-size-14);
+  resize: none;
+}
+
+.input:focus-visible {
+  outline-color: var(--theme-primary);
+}

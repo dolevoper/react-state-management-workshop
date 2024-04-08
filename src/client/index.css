@@ -1,0 +1,109 @@
+@font-face {
+  font-family: "FabricMDL2Icons";
+  src: url("/fabric-icons-92590a9e.woff") format("woff");
+}
+
+:root {
+  --theme-darker: #004578;
+  --theme-dark: #005a9e;
+  --theme-primary: #0078d4;
+  --theme-secondary: #2b88d8;
+  --theme-tertiary: #71afe5;
+  --theme-light: #c7e0f4;
+  --theme-lighter: #deecf9;
+
+  --neutral-dark: #201f1e;
+  --neutral-primary: #323130;
+  --neutral-secondary: #605e5c;
+  --neutral-secondary-alt: #8a8886;
+  --neutral-tertiary: #a19f9d;
+  --neutral-quaternary: #d2d0ce;
+  --neutral-light: #edebe9;
+  --neutral-lighter: #f3f2f1;
+
+  --red-dark: #a4262c;
+
+  --font-weight-regulart: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --font-size-10: 0.625rem;
+  --font-size-12: 0.75rem;
+  --font-size-14: 0.875rem;
+  --font-size-16: 1rem;
+  --font-size-18: 1.125rem;
+  --font-size-20: 1.25rem;
+  --font-size-24: 1.5rem;
+  --font-size-28: 1.75rem;
+  --font-size-32: 2rem;
+  --font-size-42: 2.625rem;
+  --font-size-68: 4.25rem;
+
+  --depth-4: 0 1.6px 3.6px 0 rgba(0, 0, 0, 0.132),
+    0 0.3px 0.9px 0 rgba(0, 0, 0, 0.108);
+  --depth-8: 0 3.2px 7.2px 0 rgba(0, 0, 0, 0.132),
+    0 0.6px 1.8px 0 rgba(0, 0, 0, 0.108);
+  --depth-16: 0 6.4px 14.4px 0 rgba(0, 0, 0, 0.132),
+    0 1.2px 3.6px 0 rgba(0, 0, 0, 0.108);
+  --depth-64: 0 25.6px 57.6px 0 rgba(0, 0, 0, 0.22),
+    0 4.8px 14.4px 0 rgba(0, 0, 0, 0.18);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  font-size: calc(1rem + 0.5vw);
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  line-height: 1.6;
+  color: var(--neutral-primary);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.2;
+  letter-spacing: -0.0625em;
+  font-weight: var(--font-weight-bold);
+}
+
+h1 {
+  font-size: var(--font-size-32);
+}
+
+h2 {
+  font-size: var(--font-size-24);
+}
+
+a {
+  color: var(--theme-primary);
+}
