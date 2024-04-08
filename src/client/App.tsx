@@ -2,6 +2,7 @@ import { useReducer, useState } from "react";
 import Dropdown, { Option } from "./components/Dropdown";
 import Input from "./components/Input";
 import TextArea from "./components/TextArea";
+import Button from "./components/Button";
 
 function App() {
   const [currentStats, updateStat] = useStats();
@@ -68,7 +69,7 @@ function App() {
           ))}
           <p>Remaining points: {remainingPoints}</p>
         </article>
-        <button data-primary>Create</button>
+        <Button primary>Create</Button>
       </form>
     </main>
   );

@@ -47,7 +47,7 @@
   animation: open 0.1s linear;
 }
 
-[aria-expanded="true"] + .listbox {
+[aria-expanded="true"]+.listbox {
   display: block;
 }
 
@@ -63,7 +63,7 @@
   background: var(--neutral-lighter);
 }
 
-.option[data-current="true"] {
+.option[aria-selected="true"] {
   background: var(--neutral-light);
 }
 
@@ -73,6 +73,7 @@
     scale: 1 0;
     transform-origin: top;
   }
+
   to {
     opacity: 1;
     scale: 1;

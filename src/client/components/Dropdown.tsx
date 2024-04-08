@@ -77,6 +77,7 @@ export default function Dropdown({
         tabIndex={0}
         className={styles.selection}
         onClick={toggleIsOpen}
+        onKeyDown={() => {}}
       >
         {selection?.display}
       </div>
@@ -124,7 +125,7 @@ function useDropdown() {
         setIsOpen(false);
       },
     }),
-    [selection?.value]
+    [options, selection?.value]
   );
 
   useEffect(() => {
@@ -142,7 +143,7 @@ function useDropdown() {
     return () => {
       document.removeEventListener("click", handleClick);
     };
-  }, []);
+  }, [rootId]);
 
   return {
     rootId,
@@ -172,7 +173,9 @@ export function Option({ value, children }: OptionProps) {
       className={styles.option}
       role="option"
       onClick={() => select(value)}
-      data-current={currentValue === value}
+      aria-selected={currentValue === value}
+      onKeyDown={() => {}}
+      tabIndex={0}
     >
       {children}
     </div>
