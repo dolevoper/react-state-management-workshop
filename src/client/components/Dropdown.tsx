@@ -114,6 +114,12 @@ function useDropdown() {
     () => ({
       currentValue: selection?.value,
       register(value: string, display: ReactNode) {
+        if (options.some((option) => option.value === value)) {
+          return () => {
+            setOptions((values) => values.filter((v) => v.value !== value));
+          };
+        }
+
         setOptions((values) => [...values, { value, display }]);
 
         return () => {

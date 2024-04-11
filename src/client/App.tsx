@@ -1,4 +1,5 @@
 import { useReducer, useState } from "react";
+import axios from "axios";
 import Dropdown, { Option } from "./components/Dropdown";
 import Input from "./components/Input";
 import TextArea from "./components/TextArea";
@@ -30,7 +31,7 @@ function App() {
             ...currentStats,
           };
 
-          console.log(character);
+          axios.post("/characters", character);
         }}
       >
         <Input
