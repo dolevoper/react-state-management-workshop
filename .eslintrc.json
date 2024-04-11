@@ -30,6 +30,7 @@
     },
     "rules": {
       "no-unused-vars": "off",
-      "react/react-in-jsx-scope": "off"
+      "react/react-in-jsx-scope": "off",
+      "import/default": "off"
     }
   }

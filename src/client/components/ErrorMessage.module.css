@@ -1,4 +1,6 @@
 .errorMessage {
+    display: flex;
+    gap: 0.5rem;
     background: #fde7e9;
     border-radius: 2px;
     padding: 0 1rem;
@@ -6,4 +8,8 @@
     box-shadow: var(--depth-4);
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-semibold);
+}
+
+.errorIcon {
+    color: #a80000;
 }

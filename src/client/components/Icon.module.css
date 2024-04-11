@@ -1,0 +1,19 @@
+.icon {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+  font-family: 'FabricMDL2Icons';
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+}
+
+.chevronDown:before {
+  content: "\E70D";
+}
+
+.error:before {
+  content: "\E783";
+}

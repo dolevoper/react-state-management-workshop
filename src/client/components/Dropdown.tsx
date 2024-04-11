@@ -8,6 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import Icon from "./Icon";
 import styles from "./Dropdown.module.css";
 
 const context = createContext<
@@ -80,6 +81,7 @@ export default function Dropdown({
         onKeyDown={() => {}}
       >
         {selection?.display}
+        <Icon name="chevronDown" className={styles.selection__chevron} />
       </div>
       <div
         id={listboxId}

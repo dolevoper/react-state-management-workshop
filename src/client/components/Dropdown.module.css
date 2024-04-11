@@ -23,17 +23,10 @@
   outline-color: var(--theme-primary);
 }
 
-.selection::after {
-  content: "\E70D";
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  display: inline-block;
-  font-family: "FabricMDL2Icons";
-  font-style: normal;
-  font-weight: normal;
-  speak: none;
+.selection__chevron {
   position: absolute;
   right: 8px;
+  height: 100%;
 }
 
 .listbox {
