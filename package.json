@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon -w src/server -x tsx src/server/main.ts",
     "start": "cross-env NODE_ENV=production tsx src/server/main.ts",
-    "build": "vite build"
+    "build": "vite build",
+    "update-db": "drizzle-kit push:sqlite"
   },
   "dependencies": {
     "axios": "^1.6.8",
@@ -30,6 +31,7 @@
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",
     "@vitejs/plugin-react": "^4.2.0",
+    "drizzle-kit": "^0.20.14",
     "eslint": "^8.0.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.8.0",
