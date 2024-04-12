@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useReducer, useRef, useState } from "react";
 import axios from "axios";
 import Dropdown, { Option } from "./components/Dropdown";
 import Input from "./components/Input";
@@ -10,6 +10,7 @@ function App() {
   const [currentStats, updateStat] = useStats();
   const remainingPoints = pointsToDistribute - sumStats(currentStats);
   const [formError, setFormError] = useState("");
+  const errorMessageRef = useRef<HTMLParagraphElement | null>(null);
 
   return (
     <main className="stack center reading-view">
@@ -22,6 +23,7 @@ function App() {
 
           if (remainingPoints > 0) {
             setFormError("All stat points must be allocated.");
+            errorMessageRef.current?.scrollIntoView();
             return;
           }
 
@@ -74,7 +76,7 @@ function App() {
           <p>Remaining points: {remainingPoints}</p>
         </article>
         <Button primary>Create</Button>
-        <ErrorMessage>{formError}</ErrorMessage>
+        <ErrorMessage ref={errorMessageRef}>{formError}</ErrorMessage>
       </form>
     </main>
   );
