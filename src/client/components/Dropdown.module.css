@@ -38,6 +38,8 @@
   box-shadow: var(--depth-8);
   border-radius: 2px;
   animation: open 0.1s linear;
+  will-change: scale;
+  transform-origin: top;
 }
 
 [aria-expanded="true"]+.listbox {
@@ -64,7 +66,6 @@
   from {
     opacity: 0;
     scale: 1 0;
-    transform-origin: top;
   }
 
   to {
