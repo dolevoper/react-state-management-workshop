@@ -1,5 +1,5 @@
 import { useLoaderData } from "react-router";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Input from "./components/Input";
 import styles from "./ListCharacters.module.css";
 
@@ -9,6 +9,11 @@ export default function ListCharacters() {
   return (
     <>
       <h1>Characters</h1>
+      <menu className="cluster">
+        <li>
+          <Link to="new">New character</Link>
+        </li>
+      </menu>
       <Search />
       <CharactersList />
     </>

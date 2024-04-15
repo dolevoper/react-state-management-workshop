@@ -19,3 +19,7 @@
   flex-wrap: wrap;
   gap: 0.5rem;
 }
+
+.cluster.cluster--reverse {
+  flex-direction: row-reverse;
+}

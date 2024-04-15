@@ -5,19 +5,21 @@ import Input from "./components/Input";
 import TextArea from "./components/TextArea";
 import Button from "./components/Button";
 import ErrorMessage from "./components/ErrorMessage";
+import { useNavigate } from "react-router";
 
-function CreateCharacter() {
+export default function CreateCharacter() {
   const [currentStats, updateStat] = useStats();
   const remainingPoints = pointsToDistribute - sumStats(currentStats);
   const [formError, setFormError] = useState("");
   const errorMessageRef = useRef<HTMLParagraphElement | null>(null);
+  const navigate = useNavigate();
 
   return (
     <>
       <h1>New character</h1>
       <form
         className="stack"
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
           setFormError("");
 
@@ -33,7 +35,9 @@ function CreateCharacter() {
             ...currentStats,
           };
 
-          axios.post("/characters", character);
+          await axios.post("/characters", character);
+
+          navigate("..");
         }}
       >
         <Input
@@ -75,7 +79,16 @@ function CreateCharacter() {
           ))}
           <p>Remaining points: {remainingPoints}</p>
         </article>
-        <Button primary>Create</Button>
+        <menu className="cluster cluster--reverse">
+          <li>
+            <Button primary>Create</Button>
+          </li>
+          <li>
+            <Button type="button" onClick={() => navigate("..")}>
+              Cancel
+            </Button>
+          </li>
+        </menu>
         <ErrorMessage ref={errorMessageRef}>{formError}</ErrorMessage>
       </form>
     </>
@@ -114,5 +127,3 @@ const useStats = () =>
     },
     { strength: 1, dexterity: 1, agility: 1, intelligence: 1, charisma: 1 }
   );
-
-export default CreateCharacter;
