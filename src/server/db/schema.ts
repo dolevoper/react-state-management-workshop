@@ -11,3 +11,5 @@ export const characters = sqliteTable("characters", {
     intelligence: integer("intelligence").notNull(),
     charisma: integer("charisma").notNull()
 });
+
+export type Character = typeof characters.$inferSelect;

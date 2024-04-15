@@ -110,3 +110,8 @@ h2 {
 a {
   color: var(--theme-primary);
 }
+
+ul {
+  list-style: none;
+  padding: 0;
+}

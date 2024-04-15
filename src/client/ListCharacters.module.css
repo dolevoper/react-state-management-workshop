@@ -1,0 +1,22 @@
+.characterCard {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--neutral-light);
+}
+
+.characterCard:hover {
+    background: var(--neutral-light);
+}
+
+.className {
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-semibold);
+    color: var(--neutral-tertiary);
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: var(--font-size-14);
+    font-weight: var(--font-weight-semibold);
+}
