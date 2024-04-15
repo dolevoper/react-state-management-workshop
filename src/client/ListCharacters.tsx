@@ -27,7 +27,7 @@ function Search() {
         value={searchParams.get("name") ?? ""}
         onInput={(e) => {
           searchParams.set("name", e.currentTarget.value);
-          setSearchParams(searchParams);
+          setSearchParams(searchParams, { replace: true });
         }}
       />
     </form>
