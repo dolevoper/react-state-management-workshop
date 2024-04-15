@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router";
+import { useSearchParams } from "react-router-dom";
 import Input from "./components/Input";
 import styles from "./ListCharacters.module.css";
 
@@ -6,12 +7,22 @@ import type { Character } from "../server/db/schema";
 
 export default function ListCharacters() {
   const characters = useLoaderData() as Character[];
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <>
       <h1>Characters</h1>
       <form>
-        <Input id="character-search" type="search" label="Search" />
+        <Input
+          id="character-search"
+          type="search"
+          label="Search"
+          value={searchParams.get("name") ?? ""}
+          onInput={(e) => {
+            searchParams.set("name", e.currentTarget.value);
+            setSearchParams(searchParams);
+          }}
+        />
       </form>
       <ul>
         {characters.map((character) => (

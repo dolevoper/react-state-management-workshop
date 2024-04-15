@@ -1,6 +1,7 @@
 import express from "express";
 import ViteExpress from "vite-express";
 import bodyParser from "body-parser";
+import { like } from "drizzle-orm";
 import { db } from "./db/instance.ts";
 import { characters } from "./db/schema.ts";
 
@@ -8,8 +9,9 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.get("/characters", async (_, res) => {
-  const data = await db.select().from(characters);
+app.get("/characters", async (req, res) => {
+  const nameSearch = req.query.name?.toString();
+  const data = await db.select().from(characters).where(nameSearch ? like(characters.name, `%${nameSearch}%`) : undefined);
 
   res.status(200);
   res.json(data);
