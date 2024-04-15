@@ -6,30 +6,47 @@ import styles from "./ListCharacters.module.css";
 import type { Character } from "../server/db/schema";
 
 export default function ListCharacters() {
-  const characters = useLoaderData() as Character[];
-  const [searchParams, setSearchParams] = useSearchParams();
-
   return (
     <>
       <h1>Characters</h1>
-      <form>
-        <Input
-          id="character-search"
-          type="search"
-          label="Search"
-          value={searchParams.get("name") ?? ""}
-          onInput={(e) => {
-            searchParams.set("name", e.currentTarget.value);
-            setSearchParams(searchParams);
-          }}
-        />
-      </form>
-      <ul>
-        {characters.map((character) => (
-          <CharacterCard key={character.id} character={character} />
-        ))}
-      </ul>
+      <Search />
+      <CharactersList />
     </>
+  );
+}
+
+function Search() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  return (
+    <form>
+      <Input
+        id="character-search"
+        type="search"
+        label="Search"
+        value={searchParams.get("name") ?? ""}
+        onInput={(e) => {
+          searchParams.set("name", e.currentTarget.value);
+          setSearchParams(searchParams);
+        }}
+      />
+    </form>
+  );
+}
+
+function CharactersList() {
+  const characters = useLoaderData() as Character[];
+
+  if (!characters.length) {
+    return <p>No characters to display.</p>;
+  }
+
+  return (
+    <ul>
+      {characters.map((character) => (
+        <CharacterCard key={character.id} character={character} />
+      ))}
+    </ul>
   );
 }
 
