@@ -11,6 +11,7 @@
     font-size: var(--font-size-14);
     font-weight: var(--font-weight-semibold);
     color: var(--neutral-tertiary);
+    text-transform: capitalize;
 }
 
 .stat {

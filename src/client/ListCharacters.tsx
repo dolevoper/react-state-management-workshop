@@ -1,9 +1,12 @@
+import { useLoaderData } from "react-router";
 import Input from "./components/Input";
 import styles from "./ListCharacters.module.css";
 
 import type { Character } from "../server/db/schema";
 
 export default function ListCharacters() {
+  const characters = useLoaderData() as Character[];
+
   return (
     <>
       <h1>Characters</h1>
@@ -11,19 +14,9 @@ export default function ListCharacters() {
         <Input id="character-search" type="search" label="Search" />
       </form>
       <ul>
-        <CharacterCard
-          character={{
-            name: "omer",
-            bio: "aaa",
-            class: "bard",
-            agility: 1,
-            charisma: 1,
-            dexterity: 1,
-            id: "asdasd",
-            intelligence: 1,
-            strength: 1,
-          }}
-        />
+        {characters.map((character) => (
+          <CharacterCard key={character.id} character={character} />
+        ))}
       </ul>
     </>
   );

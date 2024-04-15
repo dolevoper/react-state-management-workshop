@@ -1,9 +1,9 @@
-import ListCharacters from "./ListCharacters";
+import { Outlet } from "react-router";
 
 function App() {
   return (
     <main className="stack center reading-view">
-      <ListCharacters />
+      <Outlet />
     </main>
   );
 }
