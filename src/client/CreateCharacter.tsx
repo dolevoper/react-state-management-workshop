@@ -10,14 +10,15 @@ import ErrorMessage from "./components/ErrorMessage";
 import styles from "./CreateCharacter.module.css";
 
 export default function CreateCharacter() {
-  const [currentStats, updateStat] = useStats();
-  const remainingPoints = pointsToDistribute - sumStats(currentStats);
-  const [formError, setFormError] = useState("");
-  const errorMessageRef = useRef<HTMLParagraphElement | null>(null);
-  const { search } = useLocation();
-  const navigate = useNavigate();
-
-  const closeModal = () => navigate({ pathname: "..", search });
+  const {
+    createCharacter,
+    closeModal,
+    errorMessageRef,
+    formError,
+    currentStats,
+    updateStat,
+    remainingPoints,
+  } = useCreateCharacter();
 
   return (
     <Modal>
@@ -29,19 +30,8 @@ export default function CreateCharacter() {
             id="createCharacter"
             onSubmit={async (e) => {
               e.preventDefault();
-              setFormError("");
-              if (remainingPoints > 0) {
-                setFormError("All stat points must be allocated.");
-                errorMessageRef.current?.scrollIntoView();
-                return;
-              }
-              const formData = new FormData(e.currentTarget);
-              const character = {
-                ...Object.fromEntries(formData),
-                ...currentStats,
-              };
-              await axios.post("/characters", character);
-              closeModal();
+
+              createCharacter(new FormData(e.currentTarget));
             }}
           >
             <Input
@@ -100,6 +90,47 @@ export default function CreateCharacter() {
       </div>
     </Modal>
   );
+}
+
+function useCreateCharacter() {
+  const [currentStats, updateStat] = useStats();
+  const remainingPoints = pointsToDistribute - sumStats(currentStats);
+  const [formError, setFormError] = useState("");
+  const errorMessageRef = useRef<HTMLParagraphElement | null>(null);
+  const { search } = useLocation();
+  const navigate = useNavigate();
+
+  const closeModal = () => navigate({ pathname: "..", search });
+
+  async function createCharacter(formData: FormData) {
+    setFormError("");
+
+    if (remainingPoints > 0) {
+      setFormError("All stat points must be allocated.");
+      errorMessageRef.current?.scrollIntoView();
+
+      return;
+    }
+
+    const character = {
+      ...Object.fromEntries(formData),
+      ...currentStats,
+    };
+
+    await axios.post("/characters", character);
+
+    closeModal();
+  }
+
+  return {
+    closeModal,
+    createCharacter,
+    errorMessageRef,
+    formError,
+    currentStats,
+    updateStat,
+    remainingPoints,
+  };
 }
 
 const stats = [
