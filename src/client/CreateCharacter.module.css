@@ -1,0 +1,26 @@
+.dialogBackdrop {
+    position: fixed;
+    inset: 0;
+    background: rgb(0 0 0 / 0.2);
+    display: grid;
+    place-items: center;
+}
+
+.dialogContainer {
+    width: min(100%, 50ch);
+    height: max(calc(100vh - 40vw), 70vh);
+    background: white;
+    box-shadow: var(--depth-8);
+    padding: 1rem;
+}
+
+.dialogContainer>form {
+    overflow: auto;
+    flex: 1;
+}
+
+@media (width <=62.5ch) {
+    .dialogContainer {
+        height: 100%;
+    }
+}

@@ -9,17 +9,19 @@ export default createBrowserRouter([
         Component: App,
         children: [
             {
-                index: true,
+                path: "/",
                 Component: ListCharacters,
                 async loader({ request }) {
                     const url = new URL(request.url);
 
                     return (await axios.get(`/characters${url.search}`, { signal: request.signal })).data;
-                }
-            },
-            {
-                path: "new",
-                Component: CreateCharacter
+                },
+                children: [
+                    {
+                        path: "new",
+                        Component: CreateCharacter
+                    }
+                ]
             }
         ]
     }

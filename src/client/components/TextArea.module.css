@@ -12,7 +12,6 @@
   border: 1px solid var(--neutral-secondary);
   border-radius: 2px;
   padding: 0 8px;
-  line-height: 2;
   font-size: var(--font-size-14);
   resize: none;
 }

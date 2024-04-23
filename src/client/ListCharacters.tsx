@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router";
+import { Outlet, useLoaderData, useLocation } from "react-router";
 import { Link, useSearchParams } from "react-router-dom";
 import Input from "./components/Input";
 import styles from "./ListCharacters.module.css";
@@ -9,14 +9,30 @@ export default function ListCharacters() {
   return (
     <>
       <h1>Characters</h1>
-      <menu className="cluster">
-        <li>
-          <Link to="new">New character</Link>
-        </li>
-      </menu>
+      <Menu />
       <Search />
       <CharactersList />
+      <Outlet />
     </>
+  );
+}
+
+function Menu() {
+  const { search } = useLocation();
+
+  return (
+    <menu className="cluster">
+      <li>
+        <Link
+          to={{
+            pathname: "new",
+            search,
+          }}
+        >
+          New character
+        </Link>
+      </li>
+    </menu>
   );
 }
 
@@ -64,7 +80,7 @@ function CharacterCard({ character }: CharacterCardProps) {
     <li className={`stack ${styles.characterCard}`}>
       <h2>{character.name}</h2>
       <p className={styles.className}>{character.class}</p>
-      <p>{character.bio}</p>
+      <p className={styles.bio}>{character.bio}</p>
       <ul className="cluster">
         <li className={styles.stat} title="Strength">
           <span>STR</span>
