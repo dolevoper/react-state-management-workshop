@@ -1,7 +1,7 @@
 import styles from "./Icon.module.css";
 
 type IconProps = {
-  name: "error" | "chevronDown";
+  name: "error" | "chevronDown" | "chevronLeft" | "chevronRight";
   className?: string;
 };
 

@@ -17,3 +17,11 @@
 .error:before {
   content: "\E783";
 }
+
+.chevronLeft:before {
+  content: "\E76B";
+}
+
+.chevronRight:before {
+  content: "\E76C";
+}

@@ -4,6 +4,7 @@ import Input from "./components/Input";
 import styles from "./ListCharacters.module.css";
 
 import type { Character } from "../server/db/schema";
+import Icon from "./components/Icon";
 
 export default function ListCharacters() {
   return (
@@ -78,19 +79,19 @@ function Pagination() {
   }
 
   return (
-    <menu className="cluster">
+    <menu className="cluster center">
       <li>
         <Link to={{
           search: getPreviousPageSearch()
-        }}>&lt;</Link>
+        }}><Icon name="chevronLeft" /></Link>
       </li>
       <li>
-        {currentPage}
+        Showing page {currentPage} of 11
       </li>
       <li>
         <Link to={{
           search: getNextPageSearch()
-        }}>&gt;</Link>
+        }}><Icon name="chevronRight" /></Link>
       </li>
     </menu>
   )
