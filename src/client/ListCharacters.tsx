@@ -11,6 +11,7 @@ export default function ListCharacters() {
       <h1>Characters</h1>
       <Menu />
       <Search />
+      <Pagination />
       <CharactersList />
       <Outlet />
     </>
@@ -53,6 +54,46 @@ function Search() {
       />
     </form>
   );
+}
+
+function Pagination() {
+  const [searchParams] = useSearchParams();
+
+  const currentPage = Number(searchParams.get("page") ?? "1");
+
+  function getNextPageSearch() {
+    const nextSearchParams = new URLSearchParams(searchParams);
+
+    nextSearchParams.set("page", `${currentPage + 1}`);
+
+    return nextSearchParams.toString();
+  }
+
+  function getPreviousPageSearch() {
+    const nextSearchParams = new URLSearchParams(searchParams);
+
+    nextSearchParams.set("page", `${currentPage - 1}`);
+
+    return nextSearchParams.toString();
+  }
+
+  return (
+    <menu className="cluster">
+      <li>
+        <Link to={{
+          search: getPreviousPageSearch()
+        }}>&lt;</Link>
+      </li>
+      <li>
+        {currentPage}
+      </li>
+      <li>
+        <Link to={{
+          search: getNextPageSearch()
+        }}>&gt;</Link>
+      </li>
+    </menu>
+  )
 }
 
 function CharactersList() {
