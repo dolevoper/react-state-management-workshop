@@ -1,7 +1,7 @@
 import express, { Request } from "express";
 import ViteExpress from "vite-express";
 import bodyParser from "body-parser";
-import { like } from "drizzle-orm";
+import { count, like } from "drizzle-orm";
 import { db } from "./db/instance.ts";
 import { characters } from "./db/schema.ts";
 
@@ -14,15 +14,27 @@ const pageSize = 10;
 app.get("/characters", async (req, res) => {
   const page = getPageNumber(req);
   const nameSearch = req.query.name?.toString();
-  const data = await db
-    .select()
-    .from(characters)
-    .where(nameSearch ? like(characters.name, `%${nameSearch}%`) : undefined)
-    .limit(pageSize)
-    .offset((page - 1) * pageSize);
+  const whereClause = nameSearch ? like(characters.name, `%${nameSearch}%`) : undefined;
+
+  const [data, recordCount] = await Promise.all([
+    db
+      .select()
+      .from(characters)
+      .where(whereClause)
+      .limit(pageSize)
+      .offset((page - 1) * pageSize),
+    db
+      .select({ value: count() })
+      .from(characters)
+      .where(whereClause)
+  ]);
 
   res.status(200);
-  res.json(data);
+  res.json({
+    data,
+    page,
+    pageCount: Math.ceil(recordCount[0].value / pageSize)
+  });
 });
 
 function getPageNumber(req: Request) {

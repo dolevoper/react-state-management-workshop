@@ -58,14 +58,13 @@ function Search() {
 }
 
 function Pagination() {
+  const { page, pageCount } = useCharacters();
   const [searchParams] = useSearchParams();
-
-  const currentPage = Number(searchParams.get("page") ?? "1");
 
   function getNextPageSearch() {
     const nextSearchParams = new URLSearchParams(searchParams);
 
-    nextSearchParams.set("page", `${currentPage + 1}`);
+    nextSearchParams.set("page", `${page + 1}`);
 
     return nextSearchParams.toString();
   }
@@ -73,7 +72,7 @@ function Pagination() {
   function getPreviousPageSearch() {
     const nextSearchParams = new URLSearchParams(searchParams);
 
-    nextSearchParams.set("page", `${currentPage - 1}`);
+    nextSearchParams.set("page", `${page - 1}`);
 
     return nextSearchParams.toString();
   }
@@ -86,7 +85,7 @@ function Pagination() {
         }}><Icon name="chevronLeft" /></Link>
       </li>
       <li>
-        Showing page {currentPage} of 11
+        Showing page {page} of {pageCount}
       </li>
       <li>
         <Link to={{
@@ -98,15 +97,15 @@ function Pagination() {
 }
 
 function CharactersList() {
-  const characters = useLoaderData() as Character[];
+  const { data } = useCharacters();
 
-  if (!characters.length) {
+  if (!data.length) {
     return <p>No characters to display.</p>;
   }
 
   return (
     <ul>
-      {characters.map((character) => (
+      {data.map((character) => (
         <CharacterCard key={character.id} character={character} />
       ))}
     </ul>
@@ -147,4 +146,8 @@ function CharacterCard({ character }: CharacterCardProps) {
       </ul>
     </li>
   );
+}
+
+function useCharacters() {
+  return useLoaderData() as { data: Character[], page: number, pageCount: number };
 }
