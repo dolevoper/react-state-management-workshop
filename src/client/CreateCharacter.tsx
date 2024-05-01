@@ -144,7 +144,7 @@ const stats = [
 type Stat = (typeof stats)[number];
 type Stats = Record<Stat, number>;
 
-const pointsToDistribute = 20;
+const pointsToDistribute = stats.length * 5;
 
 const sumStats = (stats: Stats) => Object.values(stats).reduce((a, b) => a + b);
 
