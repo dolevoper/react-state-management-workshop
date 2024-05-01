@@ -2,8 +2,6 @@ import { UseQueryOptions } from "@tanstack/react-query";
 import axios from "axios";
 import { Character } from "../../../server/db/schema";
 
-
-
 export const characters = (searchParams: URLSearchParams): UseQueryOptions<{ data: Character[], page: number, pageCount: number }> => {
     const params = {
         name: searchParams.get("name"),
