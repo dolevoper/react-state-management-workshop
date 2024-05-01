@@ -11,6 +11,8 @@
     "create-characters": "tsx createCharacters.ts"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.32.1",
+    "@tanstack/react-query-devtools": "^5.32.1",
     "axios": "^1.6.8",
     "better-sqlite3": "^9.5.0",
     "body-parser": "^1.20.2",
@@ -25,6 +27,7 @@
     "vite-express": "*"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.32.1",
     "@types/better-sqlite3": "^7.6.9",
     "@types/express": "^4.17.21",
     "@types/node": "^20.9.3",

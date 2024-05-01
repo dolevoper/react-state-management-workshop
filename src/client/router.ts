@@ -1,8 +1,9 @@
-import axios from "axios";
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import ListCharacters from "./ListCharacters";
-import CreateCharacter from "./CreateCharacter";
+import ListCharacters from "./pages/ListCharacters/ListCharacters";
+import CreateCharacter from "./pages/CreateCharacter/CreateCharacter";
+import { queryClient } from "./queryClient";
+import { characters } from "./pages/ListCharacters/queries";
 
 export default createBrowserRouter([
     {
@@ -11,10 +12,10 @@ export default createBrowserRouter([
             {
                 path: "/",
                 Component: ListCharacters,
-                async loader({ request }) {
-                    const url = new URL(request.url);
+                loader({ request }) {
+                    const { searchParams } = new URL(request.url);
 
-                    return (await axios.get(`/characters${url.search}`, { signal: request.signal })).data;
+                    return queryClient.ensureQueryData(characters(searchParams));
                 },
                 children: [
                     {

@@ -1,10 +1,12 @@
 import { Outlet, useLoaderData, useLocation } from "react-router";
 import { Link, useSearchParams } from "react-router-dom";
-import Input from "./components/Input";
+import { useQuery } from "@tanstack/react-query";
+import Input from "../../components/Input";
+import Icon from "../../components/Icon";
+import { characters } from "./queries";
 import styles from "./ListCharacters.module.css";
 
-import type { Character } from "../server/db/schema";
-import Icon from "./components/Icon";
+import type { Character } from "../../../server/db/schema";
 
 export default function ListCharacters() {
   return (
@@ -58,7 +60,7 @@ function Search() {
 }
 
 function Pagination() {
-  const { page, pageCount } = useCharacters();
+  const { data: { page, pageCount } } = useCharacters();
   const [searchParams] = useSearchParams();
 
   function getNextPageSearch() {
@@ -97,7 +99,7 @@ function Pagination() {
 }
 
 function CharactersList() {
-  const { data } = useCharacters();
+  const { data: { data } } = useCharacters();
 
   if (!data.length) {
     return <p>No characters to display.</p>;
@@ -149,5 +151,11 @@ function CharacterCard({ character }: CharacterCardProps) {
 }
 
 function useCharacters() {
-  return useLoaderData() as { data: Character[], page: number, pageCount: number };
+  const [searchParams] = useSearchParams();
+  const initialData = useLoaderData() as { data: Character[], page: number, pageCount: number };
+
+  return useQuery({
+    ...characters(searchParams),
+    initialData
+  });
 }

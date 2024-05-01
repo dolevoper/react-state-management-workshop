@@ -1,12 +1,12 @@
 import { useReducer, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import axios from "axios";
-import Modal from "./components/Modal";
-import Dropdown, { Option } from "./components/Dropdown";
-import Input from "./components/Input";
-import TextArea from "./components/TextArea";
-import Button from "./components/Button";
-import ErrorMessage from "./components/ErrorMessage";
+import Modal from "../../components/Modal";
+import Dropdown, { Option } from "../../components/Dropdown";
+import Input from "../../components/Input";
+import TextArea from "../../components/TextArea";
+import Button from "../../components/Button";
+import ErrorMessage from "../../components/ErrorMessage";
 import styles from "./CreateCharacter.module.css";
 
 export default function CreateCharacter() {
