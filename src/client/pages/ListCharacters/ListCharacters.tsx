@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData, useLocation } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Input from "../../components/Input";
@@ -15,6 +15,7 @@ export default function ListCharacters() {
       <Menu />
       <Search />
       <Pagination />
+      <LoadingIndicator />
       <CharactersList />
       <Outlet />
     </>
@@ -60,8 +61,10 @@ function Search() {
 }
 
 function Pagination() {
-  const { data: { page, pageCount } } = useCharacters();
+  const { data } = useCharacters();
   const [searchParams] = useSearchParams();
+
+  const { page, pageCount } = data ?? { page: 1, pageCount: 1 };
 
   function getNextPageSearch() {
     const nextSearchParams = new URLSearchParams(searchParams);
@@ -98,16 +101,30 @@ function Pagination() {
   )
 }
 
-function CharactersList() {
-  const { data: { data } } = useCharacters();
+function LoadingIndicator() {
+  const { isFetching } = useCharacters();
 
-  if (!data.length) {
+  if (isFetching) {
+    return <p className="center">Loading...</p>;
+  }
+
+  return <p style={{ height: "1.6em" }}></p>
+}
+
+function CharactersList() {
+  const { data } = useCharacters();
+
+  if (!data) {
+    return;
+  }
+
+  if (!data.data.length) {
     return <p>No characters to display.</p>;
   }
 
   return (
     <ul>
-      {data.map((character) => (
+      {data.data.map((character) => (
         <CharacterCard key={character.id} character={character} />
       ))}
     </ul>
@@ -152,10 +169,6 @@ function CharacterCard({ character }: CharacterCardProps) {
 
 function useCharacters() {
   const [searchParams] = useSearchParams();
-  const initialData = useLoaderData() as { data: Character[], page: number, pageCount: number };
 
-  return useQuery({
-    ...characters(searchParams),
-    initialData
-  });
+  return useQuery(characters(searchParams));
 }

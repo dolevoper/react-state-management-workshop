@@ -15,7 +15,9 @@ export default createBrowserRouter([
                 loader({ request }) {
                     const { searchParams } = new URL(request.url);
 
-                    return queryClient.ensureQueryData(characters(searchParams));
+                    queryClient.ensureQueryData(characters(searchParams));
+
+                    return null;
                 },
                 children: [
                     {

@@ -64,6 +64,7 @@
 
 html {
   font-size: calc(1rem + 0.5vw);
+  scrollbar-gutter: stable;
 }
 
 body {
