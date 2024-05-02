@@ -1,9 +1,9 @@
-import { Outlet } from "react-router";
+import CreateCharacter from "./pages/CreateCharacter/CreateCharacter";
 
 function App() {
   return (
     <main className="stack center reading-view">
-      <Outlet />
+      <CreateCharacter />
     </main>
   );
 }
