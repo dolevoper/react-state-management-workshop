@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from "react-router";
 import { Link, useSearchParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Input from "../../components/Input";
 import Icon from "../../components/Icon";
 import { characters } from "./queries";
@@ -64,7 +64,11 @@ function Pagination() {
   const { data } = useCharacters();
   const [searchParams] = useSearchParams();
 
-  const { page, pageCount } = data ?? { page: 1, pageCount: 1 };
+  if (!data) {
+    return;
+  }
+
+  const { page, pageCount } = data;
 
   function getNextPageSearch() {
     const nextSearchParams = new URLSearchParams(searchParams);
@@ -170,5 +174,8 @@ function CharacterCard({ character }: CharacterCardProps) {
 function useCharacters() {
   const [searchParams] = useSearchParams();
 
-  return useQuery(characters(searchParams));
+  return useQuery({
+    ...characters(searchParams),
+    placeholderData: keepPreviousData
+  });
 }
