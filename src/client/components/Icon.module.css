@@ -25,3 +25,7 @@
 .chevronRight:before {
   content: "\E76C";
 }
+
+.progressRingDots:before {
+  content: "\F16A";
+}

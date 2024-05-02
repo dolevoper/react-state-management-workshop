@@ -109,10 +109,10 @@ function LoadingIndicator() {
   const { isFetching } = useCharacters();
 
   if (isFetching) {
-    return <p className="center">Loading...</p>;
+    return <div className="center"><Icon className={styles.loadingIcon} name="progressRingDots" /></div>;
   }
 
-  return <p style={{ height: "1.6em" }}></p>
+  return <div style={{ height: "1.6em" }}></div>
 }
 
 function CharactersList() {
