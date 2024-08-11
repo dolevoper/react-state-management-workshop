@@ -1,9 +1,10 @@
-import CreateCharacter from "./pages/CreateCharacter/CreateCharacter";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
 
 function App() {
   return (
     <main className="stack center reading-view">
-      <CreateCharacter />
+      <RouterProvider router={router} />
     </main>
   );
 }

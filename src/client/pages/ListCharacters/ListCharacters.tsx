@@ -6,6 +6,7 @@ import Button from "../../components/Button";
 import styles from "./ListCharacters.module.css";
 
 import type { Character } from "../../../server/db/schema";
+import { Link, Outlet } from "react-router-dom";
 
 export default function ListCharacters() {
   const [name, setName] = useState("");
@@ -24,10 +25,11 @@ export default function ListCharacters() {
 
   return (
     <>
+      <Outlet />
       <h1>Characters</h1>
       <menu className="cluster">
         <li>
-          <Button>New character</Button>
+          <Link to="create">New character</Link>
         </li>
       </menu>
       <form>
