@@ -45,7 +45,7 @@ function Search() {
           const newSearchParams = new URLSearchParams(searchParams);
 
           newSearchParams.set("name", e.currentTarget.value);
-          setSearchParams(newSearchParams);
+          setSearchParams(newSearchParams, { replace: true });
         }}
       />
     </form>
