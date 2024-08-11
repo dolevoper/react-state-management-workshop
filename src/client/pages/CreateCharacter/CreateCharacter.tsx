@@ -1,3 +1,5 @@
+import { useReducer, useState } from "react";
+import axios from "axios";
 import Dropdown, { Option } from "../../components/Dropdown";
 import Input from "../../components/Input";
 import TextArea from "../../components/TextArea";
@@ -5,12 +7,42 @@ import Button from "../../components/Button";
 import styles from "./CreateCharacter.module.css";
 
 export default function CreateCharacter() {
+  const [currentStats, updateStat] = useReducer(
+    (currentStats: Stats, action: { statToUpdate: Stat, newValue: number}) => {
+      const newStats = {
+        ...currentStats,
+        [action.statToUpdate]: action.newValue
+      };
+
+      if (sumStats(newStats) > pointsToDistribute) {
+        return currentStats;
+      }
+
+      return newStats;
+    },
+    defaultStats
+  );
+  const sumOfStats = sumStats(currentStats);
+
   return (
     <>
       <h1>New character</h1>
       <form
         className="stack"
         id="createCharacter"
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          if (sumOfStats !== pointsToDistribute) {
+            // show error
+            return;
+          }
+
+          const formData = new FormData(e.currentTarget);
+          const data = Object.fromEntries(formData);
+
+          axios.post("/characters", data);
+        }}
       >
         <Input
           type="text"
@@ -28,6 +60,27 @@ export default function CreateCharacter() {
           <Option value="thief">Thief</Option>
         </Dropdown>
         <TextArea id="bio" name="bio" label="Bio" rows={10} />
+        <article className="stack box">
+          <h2>Stats</h2>
+          {stats.map((stat) => (
+            <Input
+              key={stat}
+              type="number"
+              inputMode="numeric"
+              id={stat}
+              name={stat}
+              label={stat}
+              min={0}
+              value={currentStats[stat]}
+              onInput={(e) => updateStat({
+                statToUpdate: stat,
+                newValue: e.currentTarget.valueAsNumber
+              })}
+              autoComplete="off"
+              required />
+          ))}
+          <p>Points left: {pointsToDistribute - sumOfStats}</p>
+        </article>
       </form>
       <menu className="cluster cluster--reverse">
         <li>
@@ -53,4 +106,21 @@ const stats = [
   "charisma",
 ] as const;
 
+type Stat = typeof stats[number];
+type Stats = Record<Stat, number>;
+
 const pointsToDistribute = stats.length * 5;
+
+
+const defaultStats = stats.reduce(
+  (res, currentStat) => ({ ...res, [currentStat]: 0 }),
+  {} as Stats
+);
+
+function sumStats(currentStats: Stats) {
+  return Object.values(currentStats).reduce(
+    (sum, stat) => sum + stat,
+    0
+  );
+}
+
